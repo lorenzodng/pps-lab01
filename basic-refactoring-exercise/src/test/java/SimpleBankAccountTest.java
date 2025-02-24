@@ -12,13 +12,14 @@ class SimpleBankAccountTest {
 
     private AccountHolder accountHolder;
     private BankAccount bankAccount;
+    private int userId=1;
     private double balance;
     private double amount;
     private double expectedAmount;
 
     @BeforeEach
     void beforeEach(){
-        accountHolder = new AccountHolder("Mario", "Rossi", 1);
+        accountHolder = new AccountHolder("Mario", "Rossi", userId);
 
         balance= 0;
         bankAccount = new SimpleBankAccount(accountHolder, balance);
@@ -44,8 +45,9 @@ class SimpleBankAccountTest {
         amount= 100;
         bankAccount.deposit(accountHolder.getId(), amount);
 
+        userId= 2;
         amount= 50;
-        bankAccount.deposit(2, amount);
+        bankAccount.deposit(userId, amount);
 
         expectedAmount= 100;
         assertEquals(expectedAmount, bankAccount.getBalance());
@@ -68,10 +70,24 @@ class SimpleBankAccountTest {
         amount= 100;
         bankAccount.deposit(accountHolder.getId(), amount);
 
+        int userId= 2;
         amount= 70;
-        bankAccount.withdraw(2, amount);
+        bankAccount.withdraw(userId, amount);
 
         expectedAmount= 100;
         assertEquals(expectedAmount, bankAccount.getBalance());
     }
+
+    @Test
+    void TestWithdrawWithFee(){
+        amount= 100;
+        bankAccount.deposit(accountHolder.getId(), amount);
+
+        amount= 70;
+        bankAccount.withdraw(accountHolder.getId(), amount);
+
+        expectedAmount= 29;
+        assertEquals(expectedAmount, bankAccount.getBalance());
+    }
+
 }
