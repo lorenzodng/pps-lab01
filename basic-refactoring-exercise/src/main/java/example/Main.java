@@ -7,9 +7,13 @@ import example.model.SimpleBankAccount;
 public class Main {
 
     public static void main(String[] args) {
-        final AccountHolder accountHolder = new AccountHolder("Mario", "Rossi", 1);
-        final BankAccount bankAccount = new SimpleBankAccount(accountHolder, 0);
+
         double amount;
+
+        int userId= 1;
+        final AccountHolder accountHolder = new AccountHolder("Mario", "Rossi", userId);
+        double balance= 0;
+        final BankAccount bankAccount = new SimpleBankAccount(accountHolder, balance);
 
         amount= 100;
         bankAccount.deposit(accountHolder.getId(), amount);

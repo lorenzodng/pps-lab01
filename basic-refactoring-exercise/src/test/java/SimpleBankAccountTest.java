@@ -12,6 +12,9 @@ class SimpleBankAccountTest {
 
     private AccountHolder accountHolder;
     private BankAccount bankAccount;
+
+    private final String name= "Mario";
+    private final String surname= "Rossi";
     private int userId=1;
     private double balance;
     private double amount;
@@ -19,7 +22,7 @@ class SimpleBankAccountTest {
 
     @BeforeEach
     void beforeEach(){
-        accountHolder = new AccountHolder("Mario", "Rossi", userId);
+        accountHolder = new AccountHolder(name, surname, userId);
 
         balance= 0;
         bankAccount = new SimpleBankAccount(accountHolder, balance);
@@ -89,5 +92,4 @@ class SimpleBankAccountTest {
         expectedAmount= 29;
         assertEquals(expectedAmount, bankAccount.getBalance());
     }
-
 }
