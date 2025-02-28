@@ -12,13 +12,13 @@ class SimpleBankAccountTest {
 
     private AccountHolder accountHolder;
     private BankAccount bankAccount;
-
-    private final String name= "Mario";
-    private final String surname= "Rossi";
     private int userId=1;
     private double balance;
     private double amount;
     private double expectedAmount;
+    private final String name= "Mario";
+    private final String surname= "Rossi";
+
 
     @BeforeEach
     void beforeEach(){
@@ -27,6 +27,7 @@ class SimpleBankAccountTest {
         balance= 0;
         bankAccount = new SimpleBankAccount(accountHolder, balance);
     }
+
 
     @Test
     void testInitialBalance() {
@@ -73,7 +74,7 @@ class SimpleBankAccountTest {
         amount= 100;
         bankAccount.deposit(accountHolder.getId(), amount);
 
-        int userId= 2;
+        userId= 2;
         amount= 70;
         bankAccount.withdraw(userId, amount);
 

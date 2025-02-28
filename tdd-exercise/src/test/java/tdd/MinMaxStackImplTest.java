@@ -6,15 +6,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MinMaxStackImplTest {
+
     private int number;
     private int expectedNumber;
     private SimpleMinMaxStack stack;
-    private String orderType;
 
-    @Test
-    public void todo() {
-        assertTrue(true);
-    }
 
     @BeforeEach
     void beforeEach(){
@@ -117,6 +113,9 @@ class MinMaxStackImplTest {
         assertEquals(elementsNumber, stack.size());
     }
 
+
+    //more tests
+
     @Test
     void ascendingSortStack(){
         number=1;
@@ -142,7 +141,4 @@ class MinMaxStackImplTest {
         expectedNumber= 0;
         assertEquals(expectedNumber, stack.peek());
     }
-
-
-
 }

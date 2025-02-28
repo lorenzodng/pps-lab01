@@ -1,14 +1,13 @@
 package tdd;
 
-import java.io.InputStream;
 import java.util.Scanner;
 
 public class SimpleSmartDoorLock implements SmartDoorLock {
 
     private int pin;
-    private String statusDoor;
     private int failedAttempts;
     private final int maxAttempts= 3;
+    private String statusDoor;
 
     public SimpleSmartDoorLock(int pin, String statusDoor) {
         this.pin = pin;
@@ -23,12 +22,16 @@ public class SimpleSmartDoorLock implements SmartDoorLock {
     @Override
     public void unlock(int pin) {
         Scanner input = new Scanner(System.in);
+
         if(statusDoor.equals("unlocked")){
             System.out.println(("The door is already unlocked"));
+
         }else if(statusDoor.equals("locked")) {
             for (failedAttempts = 0; failedAttempts < 3; failedAttempts++) {
                 System.out.print("Insert PIN: ");
+
                 int userPin = input.nextInt();
+
                 if (userPin == pin) {
                     setStatusDoor("unlocked");
                     System.out.println(("\n\nThe door has been unlocked"));
@@ -37,6 +40,7 @@ public class SimpleSmartDoorLock implements SmartDoorLock {
                     System.out.println("\nPIN is incorrect");
                 }
             }
+
             if (!statusDoor.equals("unlocked")) {
                 System.err.println("\nThe door has been blocked");
                 setStatusDoor("blocked");
@@ -91,6 +95,7 @@ public class SimpleSmartDoorLock implements SmartDoorLock {
 
 
     //more methods
+
     public int getPin() {
         return pin;
     }

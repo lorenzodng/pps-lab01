@@ -1,7 +1,6 @@
 package tdd;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -10,13 +9,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SmartDoorLockTest {
 
-    private int expectedPin;
-
-    private String expectedStatus;
-    private int pin= 0000;
-    private String status= "unlocked";
-    private int expectedFailedAttempts;
     private SimpleSmartDoorLock smartDoorLock;
+    private int pin= 0000;
+    private int expectedPin;
+    private int expectedFailedAttempts;
+    private String status= "unlocked";
+    private String expectedStatus;
 
 
     @BeforeEach
@@ -24,17 +22,6 @@ public class SmartDoorLockTest {
         smartDoorLock= new SimpleSmartDoorLock(pin, status);
     }
 
-    @Test
-    void testGetPin(){
-        expectedPin= 0000;
-        assertEquals(expectedPin, pin);
-    }
-
-    @Test
-    void testGetStatusDoor(){
-        expectedStatus= "unlocked";
-        assertEquals(expectedStatus, status);
-    }
 
     @Test
     void testSetPin(){
@@ -46,15 +33,6 @@ public class SmartDoorLockTest {
     }
 
     @Test
-    void testSetStatusDoor(){
-        status= "locked";
-        smartDoorLock.setStatusDoor(status);
-
-        expectedStatus= "locked";
-        assertEquals(expectedStatus, smartDoorLock.getStatusDoor());
-    }
-
-    @Test
     void testUnlock(){
         ByteArrayInputStream inputStream = new ByteArrayInputStream(Integer.toString(pin).getBytes());
         System.setIn(inputStream);
@@ -62,9 +40,12 @@ public class SmartDoorLockTest {
         smartDoorLock.setStatusDoor("locked");
 
         smartDoorLock.unlock(pin);
+
         expectedStatus= "unlocked";
         assertEquals(expectedStatus, smartDoorLock.getStatusDoor());
     }
+
+
     @Test
     void testFailUnlock(){
         expectedPin= 1111;
@@ -76,6 +57,7 @@ public class SmartDoorLockTest {
         smartDoorLock.setStatusDoor("locked");
 
         smartDoorLock.unlock(pin);
+
         expectedStatus= "blocked";
         assertEquals(expectedStatus, smartDoorLock.getStatusDoor());
     }
@@ -83,6 +65,7 @@ public class SmartDoorLockTest {
     @Test
     void testLock(){
         smartDoorLock.lock();
+
         expectedStatus= "locked";
         assertEquals(expectedStatus, smartDoorLock.getStatusDoor());
     }
@@ -92,6 +75,7 @@ public class SmartDoorLockTest {
         smartDoorLock.setStatusDoor("locked");
 
         smartDoorLock.lock();
+
         expectedStatus= "locked";
         assertEquals(expectedStatus, smartDoorLock.getStatusDoor());
     }
@@ -154,5 +138,28 @@ public class SmartDoorLockTest {
         assertEquals(expectedFailedAttempts, failedAttempts);
     }
 
+
+    //more tests
+
+    @Test
+    void testGetPin(){
+        expectedPin= 0000;
+        assertEquals(expectedPin, pin);
+    }
+
+    @Test
+    void testGetStatusDoor(){
+        expectedStatus= "unlocked";
+        assertEquals(expectedStatus, status);
+    }
+
+    @Test
+    void testSetStatusDoor(){
+        status= "locked";
+        smartDoorLock.setStatusDoor(status);
+
+        expectedStatus= "locked";
+        assertEquals(expectedStatus, smartDoorLock.getStatusDoor());
+    }
 
 }

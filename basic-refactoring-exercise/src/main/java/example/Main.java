@@ -8,11 +8,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        double amount;
-
         int userId= 1;
-        final AccountHolder accountHolder = new AccountHolder("Mario", "Rossi", userId);
+        double amount;
         double balance= 0;
+        final AccountHolder accountHolder = new AccountHolder("Mario", "Rossi", userId);
         final BankAccount bankAccount = new SimpleBankAccount(accountHolder, balance);
 
         amount= 100;

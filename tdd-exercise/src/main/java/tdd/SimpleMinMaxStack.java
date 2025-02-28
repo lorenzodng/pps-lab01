@@ -60,7 +60,9 @@ public class SimpleMinMaxStack implements MinMaxStack {
         return stack.size();
     }
 
-    //other methods
+
+    //more methods
+
     public void sortStack(String orderType){
         while(!stack.isEmpty()){
             list.add(stack.pop());
