@@ -48,9 +48,11 @@ class MinMaxStackImplTest {
     @Test
     void peek(){
         number= 0;
-        stack.push(0);
+        stack.push(number);
+        number= 1;
+        stack.push(number);
 
-        expectedNumber= 0;
+        expectedNumber= 1;
         assertEquals(expectedNumber, stack.peek());
     }
 

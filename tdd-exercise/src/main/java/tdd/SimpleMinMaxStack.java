@@ -5,7 +5,7 @@ import java.util.*;
 public class SimpleMinMaxStack implements MinMaxStack {
 
    private Stack<Integer> stack= new Stack<>();
-   private List<Integer> list= new ArrayList<>();
+   private List<Integer> sortList= new ArrayList<>();
    private int numberPosition;
 
     @Override
@@ -65,17 +65,17 @@ public class SimpleMinMaxStack implements MinMaxStack {
 
     public void sortStack(String orderType){
         while(!stack.isEmpty()){
-            list.add(stack.pop());
+            sortList.add(stack.pop());
 
             if(orderType.equals("ascending")){
-                Collections.sort(list);
+                Collections.sort(sortList);
             }else if(orderType.equals("descending")) {
-                Collections.sort(list, Collections.reverseOrder());
+                Collections.sort(sortList, Collections.reverseOrder());
             }
         }
 
-        for(numberPosition=0; numberPosition<list.size(); numberPosition++){
-            stack.push(list.get(numberPosition));
+        for(numberPosition=0; numberPosition<sortList.size(); numberPosition++){
+            stack.push(sortList.get(numberPosition));
         }
     }
 }
