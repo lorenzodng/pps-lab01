@@ -25,5 +25,6 @@ public class Main {
         amount= 80;
         bankAccount.withdraw(accountHolder.getId(), amount);
         System.out.println("Current balance is " + bankAccount.getBalance());
+
     }
 }

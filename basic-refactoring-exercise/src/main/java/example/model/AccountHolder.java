@@ -46,6 +46,6 @@ public class AccountHolder {
      * @return the string representation for an AccountHolder instance
      */
     public String toString() {
-        return String.format("[ID = %d] %s %s", this.id, this.name, this.surname);
+        return "ID: " +this.id+ " - " +this.name+ " " +this.surname;
     }
 }
