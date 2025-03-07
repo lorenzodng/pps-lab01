@@ -3,86 +3,61 @@ package tdd;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SmartDoorLockTest {
 
     private SimpleSmartDoorLock smartDoorLock;
-    private int pin= 0000;
-    private int expectedPin;
-    private int expectedFailedAttempts;
-    private String status= "unlocked";
-    private String expectedStatus;
-
+    private static final int PIN= 1111;
 
     @BeforeEach
     void beforeEach(){
-        smartDoorLock= new SimpleSmartDoorLock(pin, status);
+        SimpleSmartDoorLock.Status status = SimpleSmartDoorLock.Status.UNLOCKED;
+        smartDoorLock= new SimpleSmartDoorLock(PIN, status);
     }
-
 
     @Test
     void testSetPin(){
-        pin= 1111;
-        smartDoorLock.setPin(pin);
-
-        expectedPin= 1111;
+        smartDoorLock.setPin(PIN);
+        int expectedPin= 1111;
         assertEquals(expectedPin, smartDoorLock.getPin());
     }
 
     @Test
     void testUnlock(){
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(Integer.toString(pin).getBytes());
-        System.setIn(inputStream);
-
-        smartDoorLock.setStatusDoor("locked");
-
-        smartDoorLock.unlock(pin);
-
-        expectedStatus= "unlocked";
+        smartDoorLock.unlock(PIN);
+        SimpleSmartDoorLock.Status expectedStatus = SimpleSmartDoorLock.Status.UNLOCKED;
         assertEquals(expectedStatus, smartDoorLock.getStatusDoor());
     }
 
-
     @Test
     void testFailUnlock(){
-        expectedPin= 1111;
-        String expectedPinToString= Integer.toString(expectedPin)+ " " +Integer.toString(expectedPin)+ " " +Integer.toString(expectedPin);
-
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(expectedPinToString.getBytes());
-        System.setIn(inputStream);
-
-        smartDoorLock.setStatusDoor("locked");
-
-        smartDoorLock.unlock(pin);
-
-        expectedStatus= "blocked";
+        int emptyPin= 0;
+        for(int attempts= 0; attempts<4; attempts++){
+            smartDoorLock.unlock(emptyPin);
+        }
+        SimpleSmartDoorLock.Status expectedStatus = SimpleSmartDoorLock.Status.BLOCKED;
         assertEquals(expectedStatus, smartDoorLock.getStatusDoor());
     }
 
     @Test
     void testLock(){
         smartDoorLock.lock();
-
-        expectedStatus= "locked";
+        SimpleSmartDoorLock.Status expectedStatus = SimpleSmartDoorLock.Status.LOCKED;
         assertEquals(expectedStatus, smartDoorLock.getStatusDoor());
     }
 
     @Test
     void testFailLock(){
-        smartDoorLock.setStatusDoor("locked");
-
-        smartDoorLock.lock();
-
-        expectedStatus= "locked";
-        assertEquals(expectedStatus, smartDoorLock.getStatusDoor());
+        int wrongPin= 0;
+        smartDoorLock.setPin(wrongPin);
+        assertThrows(IllegalStateException.class, ()-> smartDoorLock.lock());
     }
 
     @Test
     void testIsLocked(){
-        smartDoorLock.setStatusDoor("locked");
+        SimpleSmartDoorLock.Status locked = SimpleSmartDoorLock.Status.LOCKED;
+        smartDoorLock.setStatusDoor(locked);
         assertTrue(smartDoorLock.isLocked());
     }
 
@@ -93,7 +68,8 @@ public class SmartDoorLockTest {
 
     @Test
     void testIsBlocked(){
-        smartDoorLock.setStatusDoor("blocked");
+        SimpleSmartDoorLock.Status blocked = SimpleSmartDoorLock.Status.BLOCKED;
+        smartDoorLock.setStatusDoor(blocked);
         assertTrue(smartDoorLock.isBlocked());
     }
 
@@ -104,62 +80,48 @@ public class SmartDoorLockTest {
 
     @Test
     void testGetMaxAttempts(){
-        int attempts= 3;
-        assertEquals(attempts, smartDoorLock.getMaxAttempts());
+        int expectedMaxAttempts= 3;
+        assertEquals(expectedMaxAttempts, smartDoorLock.getMaxAttempts());
     }
 
     @Test
     void testGetFailedAttempts(){
-        expectedPin= 0000;
-
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(Integer.toString(expectedPin).getBytes());
-        System.setIn(inputStream);
-
-        smartDoorLock.setStatusDoor("locked");
-
-        smartDoorLock.unlock(pin);
-
-        expectedFailedAttempts= 0;
+        int wrongPin= 0;
+        smartDoorLock.unlock(wrongPin);
+        int expectedFailedAttempts= 1;
         assertEquals(expectedFailedAttempts, smartDoorLock.getFailedAttempts());
     }
 
     @Test
-    void reset(){
+    void testReset(){
         smartDoorLock.reset();
-
-        expectedPin= 0000;
-        assertEquals(expectedPin, pin);
-
-        expectedStatus= "unlocked";
-        assertEquals(expectedStatus, status);
-
-        expectedFailedAttempts= 0;
-        int failedAttempts= 0;
-        assertEquals(expectedFailedAttempts, failedAttempts);
+        int expectedPin=0;
+        SimpleSmartDoorLock.Status expectedStatus = SimpleSmartDoorLock.Status.UNLOCKED;
+        int expectedFailedAttempts= 0;
+        assertEquals(expectedPin, smartDoorLock.getPin());
+        assertEquals(expectedStatus, smartDoorLock.getStatusDoor());
+        assertEquals(expectedFailedAttempts, smartDoorLock.getFailedAttempts());
     }
-
 
     //more tests
 
     @Test
     void testGetPin(){
-        expectedPin= 0000;
-        assertEquals(expectedPin, pin);
+        int expectedPin= 1111;
+        assertEquals(expectedPin, smartDoorLock.getPin());
     }
 
     @Test
     void testGetStatusDoor(){
-        expectedStatus= "unlocked";
-        assertEquals(expectedStatus, status);
+        SimpleSmartDoorLock.Status expectedStatus = SimpleSmartDoorLock.Status.UNLOCKED;
+        assertEquals(expectedStatus, smartDoorLock.getStatusDoor());
     }
 
     @Test
     void testSetStatusDoor(){
-        status= "locked";
-        smartDoorLock.setStatusDoor(status);
-
-        expectedStatus= "locked";
-        assertEquals(expectedStatus, smartDoorLock.getStatusDoor());
+        SimpleSmartDoorLock.Status statusOrExpectedStatus = SimpleSmartDoorLock.Status.LOCKED;
+        smartDoorLock.setStatusDoor(statusOrExpectedStatus);
+        assertEquals(statusOrExpectedStatus, smartDoorLock.getStatusDoor());
     }
 
 }

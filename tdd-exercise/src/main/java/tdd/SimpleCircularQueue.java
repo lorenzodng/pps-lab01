@@ -5,34 +5,22 @@ import java.util.Collections;
 
 public class SimpleCircularQueue implements CircularQueue {
 
-    private int capacity;
+    private final int CAPACITY;
     private int firstPosition= 0;
-    private int lastPosition= -1;
-    private int capacityLessOnePosition;
-    private final int constantPosition= 1;
     private ArrayList<Integer> queue;
 
-    public SimpleCircularQueue(int capacity){
-        this.capacity= capacity;
-        this.capacityLessOnePosition= capacity-constantPosition;
-        queue= new ArrayList<>(capacity);
+    public SimpleCircularQueue(int CAPACITY){
+        this.CAPACITY= CAPACITY;
+        queue= new ArrayList<>(CAPACITY);
     }
 
     @Override
     public void add(int value) {
-        if(lastPosition==capacityLessOnePosition){
-            remove();
-            queue.add(firstPosition, value);
-
-            if(firstPosition<capacityLessOnePosition) {
-                firstPosition++;
-            }else{
-                firstPosition=0;
-            }
-
-        }else{
+        if(queue.size()==CAPACITY) {
+            queue.set(firstPosition, value);
+            firstPosition= (firstPosition+1) % CAPACITY;
+        }else {
             queue.add(value);
-            lastPosition++;
         }
     }
 

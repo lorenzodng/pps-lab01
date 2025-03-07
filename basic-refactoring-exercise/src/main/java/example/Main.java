@@ -9,21 +9,16 @@ public class Main {
     public static void main(String[] args) {
 
         int userId= 1;
-        double amount;
+        final double AMOUNT= 100;
         double balance= 0;
-        final AccountHolder accountHolder = new AccountHolder("Mario", "Rossi", userId);
+        String name= "Mario";
+        String surname= "Rossi";
+
+        final AccountHolder accountHolder = new AccountHolder(name, surname, userId);
         final BankAccount bankAccount = new SimpleBankAccount(accountHolder, balance);
-
-        amount= 100;
-        bankAccount.deposit(accountHolder.getId(), amount);
+        bankAccount.deposit(accountHolder.getID(), AMOUNT);
         System.out.println("Current balance is " + bankAccount.getBalance());
-
-        amount= 30;
-        bankAccount.withdraw(accountHolder.getId(), amount);
-        System.out.println("Current balance is " + bankAccount.getBalance());
-
-        amount= 80;
-        bankAccount.withdraw(accountHolder.getId(), amount);
+        bankAccount.withdraw(accountHolder.getID(), AMOUNT);
         System.out.println("Current balance is " + bankAccount.getBalance());
 
     }

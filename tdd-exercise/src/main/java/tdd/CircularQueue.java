@@ -28,11 +28,4 @@ public interface CircularQueue {
     int size();
 
     boolean isEmpty();
-
-
-
-
-
-
-
 }

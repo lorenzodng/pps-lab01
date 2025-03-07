@@ -4,78 +4,67 @@ import java.util.*;
 
 public class SimpleMinMaxStack implements MinMaxStack {
 
-   private Stack<Integer> stack= new Stack<>();
-   private List<Integer> sortList= new ArrayList<>();
-   private int numberPosition;
+   private final Stack<Integer> STACK= new Stack<>();
+   public enum SortOrder{
+       ASCENDING, DESCENDING
+   }
 
     @Override
     public void push(int value) {
-        stack.push(value);
+       STACK.push(value);
     }
 
     @Override
     public int pop() {
-        if(!stack.isEmpty()){
-            return stack.pop();
-        }else try {
-            throw new Exception();
-        } catch (Exception e) {
-            throw new IllegalStateException(e);
-        }
+       if(!STACK.isEmpty()) {
+           return STACK.pop();
+       }else throw new IllegalStateException();
     }
 
     @Override
-    public int peek() {
-        if(!stack.isEmpty()){
-            return stack.peek();
-        }else try {
-            throw new Exception();
-        } catch (Exception e) {
-            throw new IllegalStateException(e);
-        }
+    public int peek(){
+       if(!STACK.isEmpty()) {
+           return STACK.peek();
+       }else throw new IllegalStateException();
     }
 
     @Override
     public int getMin() {
-        sortStack("descending");
-        return peek();
+       SortOrder descending= SortOrder.ASCENDING;
+       return getMinMax(descending);
     }
 
     @Override
     public int getMax() {
-        sortStack("ascending");
-        return peek();
+        SortOrder ascending= SortOrder.DESCENDING;
+        return getMinMax(ascending);
     }
 
     @Override
     public boolean isEmpty() {
-        if(stack.isEmpty()){
-            return true;
-        }
-        return false;
+       return STACK.isEmpty();
     }
 
     @Override
     public int size() {
-        return stack.size();
+       return STACK.size();
     }
-
 
     //more methods
 
-    public void sortStack(String orderType){
-        while(!stack.isEmpty()){
-            sortList.add(stack.pop());
-
-            if(orderType.equals("ascending")){
-                Collections.sort(sortList);
-            }else if(orderType.equals("descending")) {
-                Collections.sort(sortList, Collections.reverseOrder());
-            }
-        }
-
-        for(numberPosition=0; numberPosition<sortList.size(); numberPosition++){
-            stack.push(sortList.get(numberPosition));
-        }
+    public int getMinMax(SortOrder orderType){
+       PriorityQueue<Integer> priorityQueue;
+       if(orderType == SortOrder.ASCENDING){
+           priorityQueue= new PriorityQueue<>();
+       }else{
+           priorityQueue= new PriorityQueue<>(Collections.reverseOrder());
+       }
+       while(!STACK.isEmpty()){
+           priorityQueue.offer(STACK.pop());
+       }
+       if(!priorityQueue.isEmpty()){
+           return priorityQueue.peek();
+       }else throw new IllegalStateException();
     }
+
 }

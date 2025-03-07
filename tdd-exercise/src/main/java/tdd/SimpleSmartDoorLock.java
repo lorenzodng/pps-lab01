@@ -1,84 +1,61 @@
 package tdd;
 
-import java.util.Scanner;
 
 public class SimpleSmartDoorLock implements SmartDoorLock {
 
     private int pin;
-    private int failedAttempts;
-    private final int maxAttempts= 3;
-    private String statusDoor;
+    private int failedAttempts= 0;
+    private static final int MAX_ATTEMPTS= 3;
+    private Status statusDoor;
+    public enum Status {
+        LOCKED, UNLOCKED, BLOCKED
+    }
 
-    public SimpleSmartDoorLock(int pin, String statusDoor) {
+    public SimpleSmartDoorLock(int pin, Status statusDoor) {
         this.pin = pin;
         this.statusDoor = statusDoor;
     }
 
     @Override
     public void setPin(int pin) {
-        this.pin = pin;
+        if(statusDoor == Status.UNLOCKED) {
+            this.pin = pin;
+        }
     }
 
     @Override
     public void unlock(int pin) {
-        Scanner input = new Scanner(System.in);
-
-        if(statusDoor.equals("unlocked")){
-            System.out.println(("The door is already unlocked"));
-
-        }else if(statusDoor.equals("locked")) {
-            for (failedAttempts = 0; failedAttempts < 3; failedAttempts++) {
-                System.out.print("Insert PIN: ");
-
-                int userPin = input.nextInt();
-
-                if (userPin == pin) {
-                    setStatusDoor("unlocked");
-                    System.out.println(("\n\nThe door has been unlocked"));
-                    break;
-                }else {
-                    System.out.println("\nPIN is incorrect");
-                }
-            }
-
-            if (!statusDoor.equals("unlocked")) {
-                System.err.println("\nThe door has been blocked");
-                setStatusDoor("blocked");
-            }
+        if(failedAttempts == MAX_ATTEMPTS) {
+            statusDoor = Status.BLOCKED;
+        }
+        if(this.pin == pin && statusDoor != Status.BLOCKED) {
+            statusDoor = Status.UNLOCKED;
+        }else {
+            failedAttempts++;
         }
     }
 
     @Override
     public void lock() {
-        if(statusDoor.equals("unlocked")){
-            setStatusDoor("locked");
-            System.out.println("The door has been locked");
-        }else try {
-            throw new Exception();
-        } catch (Exception e) {
-            System.err.println("The door can't be locked");
-        }
+        int emptyPin= 0;
+        if(pin != emptyPin){
+            setStatusDoor(Status.LOCKED);
+        }else throw new IllegalStateException();
     }
 
     @Override
     public boolean isLocked() {
-        if(statusDoor.equals("locked")){
-            return true;
-        }
-        return false;
+        return statusDoor == Status.LOCKED;
     }
 
     @Override
     public boolean isBlocked() {
-        if(statusDoor.equals("blocked")){
-            return true;
-        }
-        return false;
+        return statusDoor == Status.BLOCKED;
     }
 
     @Override
     public int getMaxAttempts() {
-        return maxAttempts;
+        return MAX_ATTEMPTS;
     }
 
     @Override
@@ -88,11 +65,10 @@ public class SimpleSmartDoorLock implements SmartDoorLock {
 
     @Override
     public void reset() {
-        setPin(0000);
-        setStatusDoor("unlocked");
+        pin= 0;
+        statusDoor= Status.UNLOCKED;
         failedAttempts= 0;
     }
-
 
     //more methods
 
@@ -100,11 +76,11 @@ public class SimpleSmartDoorLock implements SmartDoorLock {
         return pin;
     }
 
-    public String getStatusDoor() {
+    public Status getStatusDoor() {
         return statusDoor;
     }
 
-    public void setStatusDoor(String statusDoor) {
+    public void setStatusDoor(Status statusDoor) {
         this.statusDoor = statusDoor;
     }
 }

@@ -10,109 +10,87 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class CircularListTest {
 
-    private final int capacity= 2;
-    private int number;
-    private int expectedNumber;
+    private static final int FIRST_ADD_VALUE= 0;
+    private static final int SECOND_ADD_VALUE= 1;
+    private static final int EXPECTED_FIRST_ADD_VALUE= 0;
+    private static final int EXPECTED_SECOND_ADD_VALUE= 1;
     private SimpleCircularQueue queue;
-
 
     @BeforeEach
     void beforeEach(){
+        int capacity= 2;
         queue= new SimpleCircularQueue(capacity);
     }
 
-
     @Test
-    void add() {
-        number= 0;
-        queue.add(number);
-
-        expectedNumber= 0;
-        assertEquals(expectedNumber, queue.peek());
+    void testAdd() {
+        queue.add(FIRST_ADD_VALUE);
+        assertEquals(EXPECTED_FIRST_ADD_VALUE, queue.peek());
     }
 
     @Test
-    void remove() {
-        number= 0;
-        queue.add(number);
-        number= 1;
-        queue.add(number);
-
-        expectedNumber= 0;
-        assertEquals(expectedNumber, queue.remove());
+    void testRemove() {
+        queue.add(FIRST_ADD_VALUE);
+        queue.add(SECOND_ADD_VALUE);
+        assertEquals(EXPECTED_FIRST_ADD_VALUE, queue.remove());
     }
 
     @Test
-    void failRemove(){
+    void testRemoveEmptyStack(){
         assertThrows(IllegalStateException.class, ()-> queue.remove());
     }
 
     @Test
-    void peek() {
-        number= 0;
-        queue.add(number);
-        number= 1;
-        queue.add(number);
-
-        expectedNumber= 0;
-        assertEquals(expectedNumber, queue.peek());
+    void testPeek() {
+        queue.add(FIRST_ADD_VALUE);
+        queue.add(SECOND_ADD_VALUE);
+        assertEquals(EXPECTED_FIRST_ADD_VALUE, queue.peek());
     }
 
     @Test
-    void failPeek(){
+    void testFailPeek(){
         assertThrows(IllegalStateException.class, ()-> queue.peek());
     }
 
     @Test
-    void getMin() {
-        number= 1;
-        queue.add(number);
-        number= 0;
-        queue.add(number);
-
-        expectedNumber= 0;
-        assertEquals(expectedNumber, queue.getMin());
+    void testGetMin() {
+        queue.add(SECOND_ADD_VALUE);
+        queue.add(FIRST_ADD_VALUE);
+        assertEquals(EXPECTED_FIRST_ADD_VALUE, queue.getMin());
     }
 
     @Test
-    void failGetMin() {
+    void testFailGetMin() {
         assertThrows(IllegalStateException.class, ()-> queue.getMin());
     }
 
     @Test
-    void getMax() {
-        number= 0;
-        queue.add(number);
-        number= 1;
-        queue.add(number);
-
-        expectedNumber= 1;
-        assertEquals(expectedNumber, queue.getMax());
+    void testGetMax() {
+        queue.add(FIRST_ADD_VALUE);
+        queue.add(SECOND_ADD_VALUE);
+        assertEquals(EXPECTED_SECOND_ADD_VALUE, queue.getMax());
     }
 
     @Test
-    void failGetMax() {
+    void testFailGetMax() {
         assertThrows(IllegalStateException.class, ()-> queue.getMax());
     }
 
     @Test
-    void size() {
-        number= 0;
-        queue.add(number);
-
-        expectedNumber= 1;
-        assertEquals(expectedNumber, queue.size());
+    void testSize() {
+        queue.add(FIRST_ADD_VALUE);
+        int expectedSize= 1;
+        assertEquals(expectedSize, queue.size());
     }
 
     @Test
-    void isEmpty() {
+    void testIsEmpty() {
         assertTrue(queue.isEmpty());
     }
 
     @Test
-    void isNotEmpty() {
-        number= 0;
-        queue.add(number);
+    void testIsNotEmpty() {
+        queue.add(FIRST_ADD_VALUE);
         assertFalse(queue.isEmpty());
     }
 }
