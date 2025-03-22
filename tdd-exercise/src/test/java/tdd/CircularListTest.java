@@ -10,29 +10,30 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class CircularListTest {
 
-    private static final int FIRST_ADD_VALUE= 0;
-    private static final int SECOND_ADD_VALUE= 1;
-    private static final int EXPECTED_FIRST_ADD_VALUE= 0;
-    private static final int EXPECTED_SECOND_ADD_VALUE= 1;
     private SimpleCircularQueue queue;
 
     @BeforeEach
     void beforeEach(){
-        int capacity= 2;
-        queue= new SimpleCircularQueue(capacity);
+        int initialCapacity= 2;
+        queue= new SimpleCircularQueue(initialCapacity);
     }
 
     @Test
     void testAdd() {
-        queue.add(FIRST_ADD_VALUE);
-        assertEquals(EXPECTED_FIRST_ADD_VALUE, queue.peek());
+        int value= 0;
+        queue.add(value);
+        int expectedValue= 0;
+        assertEquals(expectedValue, queue.peek());
     }
 
     @Test
     void testRemove() {
-        queue.add(FIRST_ADD_VALUE);
-        queue.add(SECOND_ADD_VALUE);
-        assertEquals(EXPECTED_FIRST_ADD_VALUE, queue.remove());
+        int value= 0;
+        queue.add(value);
+        value= 1;
+        queue.add(value);
+        int expectedValue= 0;
+        assertEquals(expectedValue, queue.remove());
     }
 
     @Test
@@ -42,9 +43,12 @@ public class CircularListTest {
 
     @Test
     void testPeek() {
-        queue.add(FIRST_ADD_VALUE);
-        queue.add(SECOND_ADD_VALUE);
-        assertEquals(EXPECTED_FIRST_ADD_VALUE, queue.peek());
+        int value= 0;
+        queue.add(value);
+        value= 1;
+        queue.add(value);
+        int expectedValue= 0;
+        assertEquals(expectedValue, queue.peek());
     }
 
     @Test
@@ -54,9 +58,12 @@ public class CircularListTest {
 
     @Test
     void testGetMin() {
-        queue.add(SECOND_ADD_VALUE);
-        queue.add(FIRST_ADD_VALUE);
-        assertEquals(EXPECTED_FIRST_ADD_VALUE, queue.getMin());
+        int value= 1;
+        queue.add(value);
+        value= 0;
+        queue.add(value);
+        int expectedValue= 0;
+        assertEquals(expectedValue, queue.getMin());
     }
 
     @Test
@@ -66,9 +73,12 @@ public class CircularListTest {
 
     @Test
     void testGetMax() {
-        queue.add(FIRST_ADD_VALUE);
-        queue.add(SECOND_ADD_VALUE);
-        assertEquals(EXPECTED_SECOND_ADD_VALUE, queue.getMax());
+        int value= 0;
+        queue.add(value);
+        value= 1;
+        queue.add(value);
+        int expectedValue= 1;
+        assertEquals(expectedValue, queue.getMax());
     }
 
     @Test
@@ -78,7 +88,8 @@ public class CircularListTest {
 
     @Test
     void testSize() {
-        queue.add(FIRST_ADD_VALUE);
+        int value= 0;
+        queue.add(value);
         int expectedSize= 1;
         assertEquals(expectedSize, queue.size());
     }
@@ -90,7 +101,8 @@ public class CircularListTest {
 
     @Test
     void testIsNotEmpty() {
-        queue.add(FIRST_ADD_VALUE);
+        int value= 0;
+        queue.add(value);
         assertFalse(queue.isEmpty());
     }
 }

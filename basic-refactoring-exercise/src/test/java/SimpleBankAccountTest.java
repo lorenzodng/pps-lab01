@@ -12,16 +12,16 @@ class SimpleBankAccountTest {
 
     private AccountHolder accountHolder;
     private BankAccount bankAccount;
-    private static final String NAME= "Mario";
-    private static final String SURNAME= "Rossi";
-    private static final int INITIAL_BALANCE= 0;
-    private static final int USER_ID= 1;
     private int amount= 100;
 
     @BeforeEach
     void beforeEach(){
-        accountHolder = new AccountHolder(NAME, SURNAME, USER_ID);
-        bankAccount = new SimpleBankAccount(accountHolder, INITIAL_BALANCE);
+        String name= "Mario";
+        String surname= "Rossi";
+        int userId= 1;
+        accountHolder = new AccountHolder(name, surname, userId);
+        int initialBalance= 0;
+        bankAccount = new SimpleBankAccount(accountHolder, initialBalance);
     }
 
     @Test

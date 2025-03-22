@@ -8,12 +8,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SmartDoorLockTest {
 
     private SimpleSmartDoorLock smartDoorLock;
-    private static final int INITIAL_PIN= 1111;
-    private static final SimpleSmartDoorLock.Status INITIAL_STATUS = SimpleSmartDoorLock.Status.UNLOCKED;
 
     @BeforeEach
     void beforeEach(){
-        smartDoorLock= new SimpleSmartDoorLock(INITIAL_PIN, INITIAL_STATUS);
+        int initialPin= 1111;
+        SimpleSmartDoorLock.Status initialStatus = SimpleSmartDoorLock.Status.UNLOCKED;
+        smartDoorLock= new SimpleSmartDoorLock(initialPin, initialStatus);
     }
 
     @Test
