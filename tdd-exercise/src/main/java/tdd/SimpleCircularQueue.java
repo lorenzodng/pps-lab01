@@ -7,58 +7,58 @@ public class SimpleCircularQueue implements CircularQueue {
 
     private final int CAPACITY;
     private int firstPosition= 0;
-    private ArrayList<Integer> queue;
+    private final ArrayList<Integer> QUEUE;
 
     public SimpleCircularQueue(int CAPACITY){
         this.CAPACITY= CAPACITY;
-        queue= new ArrayList<>(CAPACITY);
+        QUEUE= new ArrayList<>(CAPACITY);
     }
 
     @Override
     public void add(int value) {
-        if(queue.size()==CAPACITY) {
-            queue.set(firstPosition, value);
+        if(QUEUE.size()==CAPACITY) {
+            QUEUE.set(firstPosition, value);
             firstPosition= (firstPosition+1) % CAPACITY;
         }else {
-            queue.add(value);
+            QUEUE.add(value);
         }
     }
 
     @Override
     public int remove() {
         if(!isEmpty()) {
-            return queue.remove(firstPosition);
+            return QUEUE.remove(firstPosition);
         }else throw new IllegalStateException();
     }
 
     @Override
     public int peek() {
         if(!isEmpty()) {
-            return queue.get(firstPosition);
+            return QUEUE.get(firstPosition);
         }else throw new IllegalStateException();
     }
 
     @Override
     public int getMin() {
         if(!isEmpty()) {
-            return Collections.min(queue);
+            return Collections.min(QUEUE);
         }else throw new IllegalStateException();
     }
 
     @Override
     public int getMax() {
         if(!isEmpty()) {
-            return Collections.max(queue);
+            return Collections.max(QUEUE);
         }else throw new IllegalStateException();
     }
 
     @Override
     public int size() {
-        return queue.size();
+        return QUEUE.size();
     }
 
     @Override
     public boolean isEmpty() {
-        return queue.isEmpty();
+        return QUEUE.isEmpty();
     }
 }

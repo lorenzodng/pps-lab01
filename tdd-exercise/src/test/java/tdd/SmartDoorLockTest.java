@@ -8,24 +8,27 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SmartDoorLockTest {
 
     private SimpleSmartDoorLock smartDoorLock;
-    private static final int PIN= 1111;
+    private static final int INITIAL_PIN= 1111;
+    private static final SimpleSmartDoorLock.Status INITIAL_STATUS = SimpleSmartDoorLock.Status.UNLOCKED;
 
     @BeforeEach
     void beforeEach(){
-        SimpleSmartDoorLock.Status status = SimpleSmartDoorLock.Status.UNLOCKED;
-        smartDoorLock= new SimpleSmartDoorLock(PIN, status);
+        smartDoorLock= new SimpleSmartDoorLock(INITIAL_PIN, INITIAL_STATUS);
     }
 
     @Test
     void testSetPin(){
-        smartDoorLock.setPin(PIN);
-        int expectedPin= 1111;
+        int pin= 2222;
+        smartDoorLock.setPin(pin);
+        int expectedPin= 2222;
         assertEquals(expectedPin, smartDoorLock.getPin());
     }
 
     @Test
     void testUnlock(){
-        smartDoorLock.unlock(PIN);
+        smartDoorLock.lock();
+        int pin= 1111;
+        smartDoorLock.unlock(pin);
         SimpleSmartDoorLock.Status expectedStatus = SimpleSmartDoorLock.Status.UNLOCKED;
         assertEquals(expectedStatus, smartDoorLock.getStatusDoor());
     }

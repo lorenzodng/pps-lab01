@@ -7,10 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MinMaxStackImplTest {
 
-    private static final int FIRST_PUSH_VALUE= 0;
-    private static final int SECOND_PUSH_VALUE= 1;
-    private static final int EXPECTING_FIRST_PUSH_VALUE= 0;
-    private static final int EXPECTING_SECOND_PUSH_VALUE= 1;
     private SimpleMinMaxStack stack;
 
     @BeforeEach
@@ -20,15 +16,22 @@ class MinMaxStackImplTest {
 
     @Test
     void testPush() {
-        stack.push(FIRST_PUSH_VALUE);
-        assertEquals(EXPECTING_FIRST_PUSH_VALUE, stack.peek());
+        int value= 0;
+        stack.push(value);
+        int expectedValue= 0;
+        assertEquals(expectedValue, stack.peek());
     }
 
     @Test
     void testPop() {
-        stack.push(FIRST_PUSH_VALUE);
-        stack.push(SECOND_PUSH_VALUE);
-        assertEquals(EXPECTING_SECOND_PUSH_VALUE, stack.pop());
+        int value= 0;
+        stack.push(value);
+        value= 1;
+        stack.push(value);
+        int expectedValuePop= 1;
+        int expectedValuePeek= 0;
+        assertEquals(expectedValuePop, stack.pop());
+        assertEquals(expectedValuePeek, stack.peek());
     }
 
     @Test
@@ -38,9 +41,12 @@ class MinMaxStackImplTest {
 
     @Test
     void testPeek(){
-        stack.push(FIRST_PUSH_VALUE);
-        stack.push(SECOND_PUSH_VALUE);
-        assertEquals(EXPECTING_SECOND_PUSH_VALUE, stack.peek());
+        int value= 0;
+        stack.push(value);
+        value= 1;
+        stack.push(value);
+        int expectedValue= 1;
+        assertEquals(expectedValue, stack.peek());
     }
 
     @Test
@@ -50,9 +56,12 @@ class MinMaxStackImplTest {
 
     @Test
     void testGetMin() {
-        stack.push(FIRST_PUSH_VALUE);
-        stack.push(SECOND_PUSH_VALUE);
-        assertEquals(EXPECTING_FIRST_PUSH_VALUE, stack.getMin());
+        int value= 0;
+        stack.push(value);
+        value= 1;
+        stack.push(value);
+        int expectedValue= 0;
+        assertEquals(expectedValue, stack.getMin());
     }
 
     @Test
@@ -62,9 +71,12 @@ class MinMaxStackImplTest {
 
     @Test
     void testGetMax() {
-        stack.push(SECOND_PUSH_VALUE);
-        stack.push(FIRST_PUSH_VALUE);
-        assertEquals(EXPECTING_SECOND_PUSH_VALUE, stack.getMax());
+        int value= 1;
+        stack.push(value);
+        value= 0;
+        stack.push(value);
+        int expectedValue= 1;
+        assertEquals(expectedValue, stack.getMax());
     }
 
     @Test
@@ -79,7 +91,8 @@ class MinMaxStackImplTest {
 
     @Test
     void testIsNotEmpty() {
-        stack.push(FIRST_PUSH_VALUE);
+        int value= 0;
+        stack.push(value);
         assertFalse(stack.isEmpty());
     }
 
@@ -93,17 +106,23 @@ class MinMaxStackImplTest {
 
     @Test
     void testGetMinMaxAscending(){
-        stack.push(SECOND_PUSH_VALUE);
-        stack.push(FIRST_PUSH_VALUE);
+        int value= 1;
+        stack.push(value);
+        value= 0;
+        stack.push(value);
         SimpleMinMaxStack.SortOrder ascending= SimpleMinMaxStack.SortOrder.ASCENDING;
-        assertEquals(EXPECTING_FIRST_PUSH_VALUE, stack.getMinMax(ascending));
+        int expectedValue= 0;
+        assertEquals(expectedValue, stack.getMinMax(ascending));
     }
 
     @Test
     void testGetMinMaxDescending(){
-        stack.push(FIRST_PUSH_VALUE);
-        stack.push(SECOND_PUSH_VALUE);
+        int value= 0;
+        stack.push(value);
+        value= 1;
+        stack.push(value);
         SimpleMinMaxStack.SortOrder descending= SimpleMinMaxStack.SortOrder.DESCENDING;
-        assertEquals(EXPECTING_SECOND_PUSH_VALUE, stack.getMinMax(descending));
+        int expectedValue= 1;
+        assertEquals(expectedValue, stack.getMinMax(descending));
     }
 }

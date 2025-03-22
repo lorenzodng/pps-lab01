@@ -12,58 +12,62 @@ class SimpleBankAccountTest {
 
     private AccountHolder accountHolder;
     private BankAccount bankAccount;
-    private static final int AMOUNT= 100;
-    private static final int MIN_EXPECTED_AMOUNT= 0;
-    private static final int MAX_EXPECTED_AMOUNT= 100;
     private static final String NAME= "Mario";
     private static final String SURNAME= "Rossi";
+    private static final int INITIAL_BALANCE= 0;
+    private static final int USER_ID= 1;
+    private int amount= 100;
 
     @BeforeEach
     void beforeEach(){
-        int userId= 1;
-        accountHolder = new AccountHolder(NAME, SURNAME, userId);
-        int balance= 0;
-        bankAccount = new SimpleBankAccount(accountHolder, balance);
+        accountHolder = new AccountHolder(NAME, SURNAME, USER_ID);
+        bankAccount = new SimpleBankAccount(accountHolder, INITIAL_BALANCE);
     }
 
     @Test
     void testInitialBalance() {
-        assertEquals(MIN_EXPECTED_AMOUNT, bankAccount.getBalance());
+        int expectedAmount= 0;
+        assertEquals(expectedAmount, bankAccount.getBalance());
     }
 
     @Test
     void testDeposit() {
-        bankAccount.deposit(accountHolder.getID(), AMOUNT);
-        assertEquals(MAX_EXPECTED_AMOUNT, bankAccount.getBalance());
+        bankAccount.deposit(accountHolder.getID(), amount);
+        int expectedAmount= 100;
+        assertEquals(expectedAmount, bankAccount.getBalance());
     }
 
     @Test
     void testWrongDeposit() {
         int wrongUserId= 2;
-        bankAccount.deposit(wrongUserId, AMOUNT);
-        assertEquals(MIN_EXPECTED_AMOUNT, bankAccount.getBalance());
+        bankAccount.deposit(wrongUserId, amount);
+        int expectedAmount= 0;
+        assertEquals(expectedAmount, bankAccount.getBalance());
     }
 
     @Test
     void testWithdraw() {
-        bankAccount.deposit(accountHolder.getID(), AMOUNT);
-        bankAccount.withdraw(accountHolder.getID(), AMOUNT);
-        assertEquals(MAX_EXPECTED_AMOUNT, bankAccount.getBalance());
+        bankAccount.deposit(accountHolder.getID(), amount);
+        bankAccount.withdraw(accountHolder.getID(), amount);
+        int expectedAmount= 100;
+        assertEquals(expectedAmount, bankAccount.getBalance());
     }
 
     @Test
     void testWrongWithdraw() {
-        bankAccount.deposit(accountHolder.getID(), AMOUNT);
+        bankAccount.deposit(accountHolder.getID(), amount);
         int wrongUserId= 2;
-        bankAccount.withdraw(wrongUserId, AMOUNT);
-        assertEquals(MAX_EXPECTED_AMOUNT, bankAccount.getBalance());
+        bankAccount.withdraw(wrongUserId, amount);
+        int expectedAmount= 100;
+        assertEquals(expectedAmount, bankAccount.getBalance());
     }
 
     @Test
     void testWithdrawWithFee(){
-        bankAccount.deposit(accountHolder.getID(), AMOUNT);
+        bankAccount.deposit(accountHolder.getID(), amount);
         int amountWithFee= 99;
         bankAccount.withdraw(accountHolder.getID(), amountWithFee);
-        assertEquals(MIN_EXPECTED_AMOUNT, bankAccount.getBalance());
+        int expectedAmount= 0;
+        assertEquals(expectedAmount, bankAccount.getBalance());
     }
 }
