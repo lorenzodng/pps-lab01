@@ -4,27 +4,27 @@ import java.util.*;
 
 public class SimpleMinMaxStack implements MinMaxStack {
 
-   private final Stack<Integer> STACK= new Stack<>();
+   private final Stack<Integer> stack= new Stack<>();
    public enum SortOrder{
        ASCENDING, DESCENDING
    }
 
     @Override
     public void push(int value) {
-       STACK.push(value);
+        stack.push(value);
     }
 
     @Override
     public int pop() {
-       if(!STACK.isEmpty()) {
-           return STACK.pop();
+       if(!stack.isEmpty()) {
+           return stack.pop();
        }else throw new IllegalStateException();
     }
 
     @Override
     public int peek(){
-       if(!STACK.isEmpty()) {
-           return STACK.peek();
+       if(!stack.isEmpty()) {
+           return stack.peek();
        }else throw new IllegalStateException();
     }
 
@@ -42,12 +42,12 @@ public class SimpleMinMaxStack implements MinMaxStack {
 
     @Override
     public boolean isEmpty() {
-       return STACK.isEmpty();
+       return stack.isEmpty();
     }
 
     @Override
     public int size() {
-       return STACK.size();
+       return stack.size();
     }
 
     //more methods
@@ -59,8 +59,8 @@ public class SimpleMinMaxStack implements MinMaxStack {
        }else{
            priorityQueue= new PriorityQueue<>(Collections.reverseOrder());
        }
-       while(!STACK.isEmpty()){
-           priorityQueue.offer(STACK.pop());
+       while(!stack.isEmpty()){
+           priorityQueue.offer(stack.pop());
        }
        if(!priorityQueue.isEmpty()){
            return priorityQueue.peek();
