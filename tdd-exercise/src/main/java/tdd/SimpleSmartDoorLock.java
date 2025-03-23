@@ -4,7 +4,7 @@ package tdd;
 public class SimpleSmartDoorLock implements SmartDoorLock {
 
     private int pin;
-    private int failedAttempts= 0;
+    private int failedAttempts;
     private static final int MAX_ATTEMPTS= 3;
     private Status statusDoor;
     public enum Status {
