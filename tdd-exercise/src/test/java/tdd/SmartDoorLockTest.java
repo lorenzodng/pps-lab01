@@ -36,7 +36,8 @@ public class SmartDoorLockTest {
     @Test
     void testFailUnlock(){
         int emptyPin= 0;
-        for(int attempts= 0; attempts<4; attempts++){
+        int tooManyAttempts= 4;
+        for(int attempts= 0; attempts<tooManyAttempts; attempts++){
             smartDoorLock.unlock(emptyPin);
         }
         SimpleSmartDoorLock.Status expectedStatus = SimpleSmartDoorLock.Status.BLOCKED;
