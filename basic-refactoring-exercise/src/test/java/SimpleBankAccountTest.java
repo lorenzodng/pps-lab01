@@ -12,7 +12,7 @@ class SimpleBankAccountTest {
 
     private AccountHolder accountHolder;
     private BankAccount bankAccount;
-    private int amount= 100;
+    private static final int AMOUNT= 100;
 
     @BeforeEach
     void beforeEach(){
@@ -32,7 +32,7 @@ class SimpleBankAccountTest {
 
     @Test
     void testDeposit() {
-        bankAccount.deposit(accountHolder.getID(), amount);
+        bankAccount.deposit(accountHolder.getId(), AMOUNT);
         int expectedAmount= 100;
         assertEquals(expectedAmount, bankAccount.getBalance());
     }
@@ -40,33 +40,33 @@ class SimpleBankAccountTest {
     @Test
     void testWrongDeposit() {
         int wrongUserId= 2;
-        bankAccount.deposit(wrongUserId, amount);
+        bankAccount.deposit(wrongUserId, AMOUNT);
         int expectedAmount= 0;
         assertEquals(expectedAmount, bankAccount.getBalance());
     }
 
     @Test
     void testWithdraw() {
-        bankAccount.deposit(accountHolder.getID(), amount);
-        bankAccount.withdraw(accountHolder.getID(), amount);
+        bankAccount.deposit(accountHolder.getId(), AMOUNT);
+        bankAccount.withdraw(accountHolder.getId(), AMOUNT);
         int expectedAmount= 100;
         assertEquals(expectedAmount, bankAccount.getBalance());
     }
 
     @Test
     void testWrongWithdraw() {
-        bankAccount.deposit(accountHolder.getID(), amount);
+        bankAccount.deposit(accountHolder.getId(), AMOUNT);
         int wrongUserId= 2;
-        bankAccount.withdraw(wrongUserId, amount);
+        bankAccount.withdraw(wrongUserId, AMOUNT);
         int expectedAmount= 100;
         assertEquals(expectedAmount, bankAccount.getBalance());
     }
 
     @Test
     void testWithdrawWithFee(){
-        bankAccount.deposit(accountHolder.getID(), amount);
+        bankAccount.deposit(accountHolder.getId(), AMOUNT);
         int amountWithFee= 99;
-        bankAccount.withdraw(accountHolder.getID(), amountWithFee);
+        bankAccount.withdraw(accountHolder.getId(), amountWithFee);
         int expectedAmount= 0;
         assertEquals(expectedAmount, bankAccount.getBalance());
     }

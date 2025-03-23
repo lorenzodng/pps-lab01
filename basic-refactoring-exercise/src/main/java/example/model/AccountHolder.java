@@ -8,38 +8,38 @@ package example.model;
  */
 public class AccountHolder {
 
-    private final int ID;
-    private final String NAME;
-    private final String SURNAME;
+    private final int id;
+    private final String name;
+    private final String surname;
 
-    public AccountHolder(final String NAME, final String SURNAME, final int ID) {
-        this.NAME = NAME;
-        this.SURNAME = SURNAME;
-        this.ID = ID;
+    public AccountHolder(final String name, final String surname, final int id) {
+        this.name = name;
+        this.surname = surname;
+        this.id = id;
     }
 
     /**
      * Retrieve the name of the person registered as possible account holder
      * @return the name of the holder
      */
-    public String getNAME() {
-        return NAME;
+    public String getName() {
+        return name;
     }
 
     /**
      * Retrieve the surname of the person registered as possible account holder
      * @return the surname of the holder
      */
-    public String getSURNAME() {
-        return this.SURNAME;
+    public String getSurname() {
+        return this.surname;
     }
 
     /**
      * Retrieve the ID of the person registered as possible account holder
      * @return the id of the holder
      */
-    public int getID() {
-        return this.ID;
+    public int getId() {
+        return this.id;
     }
 
     /**
@@ -47,6 +47,6 @@ public class AccountHolder {
      * @return the string representation for an AccountHolder instance
      */
     public String toString() {
-        return "ID: " +this.ID+ " - " +this.NAME+ " " +this.SURNAME;
+        return "ID: " +this.id+ " - " +this.name+ " " +this.surname;
     }
 }

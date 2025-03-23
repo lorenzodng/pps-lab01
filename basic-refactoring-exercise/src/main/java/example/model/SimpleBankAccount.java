@@ -7,35 +7,35 @@ package example.model;
  */
 public class SimpleBankAccount implements BankAccount {
 
-    private final AccountHolder HOLDER;
-    private double balance;
+    private final AccountHolder holder;
+    private int balance;
     private static final int FEE= 1;
 
-    public SimpleBankAccount(final AccountHolder HOLDER, double balance) {
-        this.HOLDER = HOLDER;
+    public SimpleBankAccount(final AccountHolder holder, int balance) {
+        this.holder = holder;
         this.balance = balance;
     }
 
     @Override
-    public AccountHolder getHOLDER(){
-        return this.HOLDER;
+    public AccountHolder getHolder(){
+        return this.holder;
     }
 
     @Override
-    public double getBalance() {
+    public int getBalance() {
         return this.balance;
     }
 
     @Override
-    public void deposit(final int USERID, double amount) {
-        if (checkUser(USERID)) {
+    public void deposit(final int userId, int amount) {
+        if (checkUser(userId)) {
             this.balance += amount;
         }
     }
 
     @Override
-    public void withdraw(final int USERID, double amount) {
-        if (checkUser(USERID) && isWithdrawAllowed(amount)) {
+    public void withdraw(final int userId, int amount) {
+        if (checkUser(userId) && isWithdrawAllowed(amount)) {
             this.balance = this.balance - amount - FEE;
         }
     }
@@ -44,7 +44,7 @@ public class SimpleBankAccount implements BankAccount {
         return this.balance >= amount;
     }
 
-    private boolean checkUser(final int ID) {
-        return this.HOLDER.getID() == ID;
+    private boolean checkUser(final int id) {
+        return this.holder.getId() == id;
     }
 }
